@@ -1,0 +1,76 @@
+#include <iostream>
+#include "LList.h"
+using namespace std;
+
+
+	
+	
+	int main()
+	{
+		
+		LList x;
+		
+		x.addNode(5);
+		x.addNode(8);
+		x.addNode(10);
+		x.addNode(12);
+		x.addNode(17);
+		
+		cout<< "Current list: \n";
+		cout<< "-------------- \n";
+		
+		x.displayNode();
+		
+		cout << "\nInsert 1 after position 0 \n";
+		cout<< "-------------- \n";
+		
+		x.insertNode(0, 1);
+		x.displayNode();
+		
+		cout << "\nInsert 2 after position 1 \n";
+		cout<< "-------------- \n";
+		
+		x.insertNode(1, 2);
+		x.displayNode();
+		
+		cout << "\nInsert 9 after position 4 \n";
+		cout<< "-------------- \n";
+		
+		x.insertNode(4, 9);	
+		x.displayNode();
+		
+		cout << "\nInsert 20 after position 8 \n";
+		cout<< "-------------- \n";
+		x.insertNode(8, 20);
+		x.displayNode();
+		
+		cout << "\nNumber of nodes in linked list: ";	
+		cout << x.countNode() << endl;
+		
+		cout << "\nAverage of nodes in linked list: ";
+		cout << x.avgNode() << endl;
+		
+
+		cout<< "\nNode 1 deleted\n";
+		cout<< "-------------- \n";
+		x.deleteNode(1);
+		x.displayNode();
+		
+		cout<< "\nNode 5 deleted\n";
+		cout<< "-------------- \n";
+		x.deleteNode(5);
+		x.displayNode();
+		
+		cout<< "\nNode 7 deleted\n";
+		cout<< "-------------- \n";
+		x.deleteNode(7);
+		x.displayNode();
+		
+		cout << "Number of nodes in linked list: ";	
+		cout << x.countNode() << endl;
+		cout << "\nAverage of nodes in linked list: ";
+		cout << x.avgNode() << endl;
+		
+		return 0;
+	
+	}
