@@ -1,0 +1,222 @@
+#include <iostream>
+#ifndef LLIST_H
+#define LLIST_H
+using namespace std;
+
+	
+	class LList
+	{
+		private:
+			
+			struct node //structure for node value and pointer next;
+			{
+				int data;
+				node *next;
+			};
+		
+			node *first, *last; // pointer variable
+			
+			
+		public:
+			
+			LList() //constructor to set pointer to null
+			{
+				first = nullptr;
+				last = nullptr;	
+			}
+			
+			~LList()//destructor to delete linked list
+			{
+				node * temp = new node;	// new node:  holds next node in list
+				node * ptr = new node; // new node: traverse list 
+				
+				ptr = first;
+				
+				while(ptr != nullptr)
+				{
+					temp = ptr->next;	// set temp to new node from ptr pointer pointing to next node
+					
+					delete ptr;			// delete old node
+					
+					ptr = temp;			//set ptr equal to temp to continue down list until nullptr
+				}
+				
+				first = nullptr; // assign null to first after deletion of list
+				
+			}
+			
+			void emptyList() // function: if empty true else false
+			{
+				
+				if(first == nullptr)
+				{
+					 cout << "true" << endl;
+				}
+				else
+					cout << "false" << endl;
+					
+			}
+			
+			
+			void addNode(int value) // function: Add node to End of list
+			{
+				node *temp = new node;	// new node
+				temp->data = value;		// set vallue passed to data
+				temp->next = nullptr;	// set next to null ptr
+					
+				if(first == nullptr) // if first points to nullptr: first/last = temp
+				{
+					first = temp;
+					last = temp;
+				}
+				else				// else take last pointer to next and set to temp and set last equal to last pointing to next
+				{
+					last->next = temp;
+					last = last->next;
+				}
+				
+			}
+			
+			void displayNode()		//function: Display content in linked list
+			{
+				int i = 1;
+				node *temp = new node; //new node set to first to traverse list
+				temp = first;
+				
+				while(temp != nullptr) //loop until null
+				{
+					cout << "Node " << i << ": " << temp->data << endl;
+					temp = temp->next;	// temp equal to temp pointing to next 
+					i++;
+				}
+			}
+				
+			int countNode()  //function: count number of nodes
+			{
+				node *temp = new node; //new node set to first to traverse
+				temp = first;
+				int i = 0;	//variable: hold value of total nodes
+					
+				while(temp != nullptr) // loop through list
+				{
+					i++;
+					temp = temp->next;
+				}
+				
+				return i;
+			}
+				
+			double avgNode()  //function: Average the value of the list
+			{
+				node *temp = new node;	// new node set to first to traverse list
+				temp = first;
+				
+				int i = 0;		// variable: hold value of total nodes
+				double total = 0; // variable: hold value of nodes added together 
+						
+				while(temp != nullptr) // loop to traverse list
+				{
+					i++;				
+					total += temp->data; // total + data pointed to in temp
+					temp = temp->next;
+				}
+								
+				return total/i; // return the average: total / i
+				
+			}
+			
+			void insertNode(int pos, int value) //function: add a node to the list AFTER given position
+			{
+				node *ptr = new node;  // new node to traverse list
+				ptr = first;
+				int y = 0;	//variable: count number of nodes
+				
+				while(ptr != nullptr)//loop to find number of nodes
+				{
+					y++;
+					ptr = ptr->next;
+				}
+				
+				if(pos == 0)	// if passed position is 0 
+				{
+					node * temp = new node;
+					temp->data = value;
+					temp->next = first;
+					first = temp;
+				}
+				else if(pos >= 0 && pos <= y)	// if passed position is greater than 0 and less than or equal to the number of nodes
+				{
+		
+					node *previous = new node;	// new node to hold previous node data
+					node *current = new node;	// new node to hold current data
+					node *temp = new node;		// new node to hold inserted node data
+				
+					current = first; // set current equal to first node
+				
+					for(int i =0; i < pos; i++) // loop through node until not less than passed position
+					{
+						previous = current;		//set previous node equal to current 
+						current = current->next; // set current to equal to next node
+					}
+					
+					temp->data =value;	// set data equal to passed value
+					previous ->next = temp;	//set previous pointer to new inserted node pointer
+					temp->next = current;	// set new node pointer to next node(current) pointer
+				
+				}
+				else	// if position is not in list
+				{
+					cout<< "Error: Position not in list \n";
+				}
+			}
+			
+			void deleteNode(int pos)//function: delete a node in the list
+			{
+				node *ptr = new node; // new node to traverse list
+				ptr = first; // set node to first
+				int y = 0;	//variable: length of list
+				
+				while(ptr != nullptr) // loop to count list
+				{
+					y++;
+					ptr = ptr->next;
+				}
+				
+				if(pos == 0) //if passed position is 0
+				{
+					cout << "Error: position not in list" << endl;
+				}
+				
+				else if(pos == 1) // if passed position is 1
+				{
+					node * temp = new node;  //new node
+					temp = first;		//set new node equal to first
+					first = temp->next;	//set first = to temp pointing to next
+					delete temp;	//delete new node
+				}
+				
+				else if(pos > 1 && pos <= y) //if pased position is greater than one and less than equal length of list(y)
+				{
+					node *current = new node;	//new node current 
+					node *previous = new node;	// new node previous
+					current = first;			//set current equal to first
+						
+					for(int i = 1; i < pos; i++) //loop setting previous equal to cerrent and current to next node until i less than position
+					{
+						previous = current;
+						current = current->next;
+					}
+					
+					previous->next = current->next; // set previous pointer to current pointer 
+					delete current;	// delete the current node
+				}
+				
+				else //if position is not in list
+				{
+					cout << "Error: Node not in list for deletion \n";
+				}
+			}
+					
+	};
+		
+#endif
